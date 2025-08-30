@@ -1,0 +1,145 @@
+
+/* オーバーレイとモーダル*/
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* canvasより手前に表示 */
+}
+
+#modal {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto; /* スクロール可能に */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  font-family: sans-serif;
+}
+
+#modal h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+#modal h3 {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  color: #555;
+}
+
+#modal p, #modal li {
+  line-height: 1.6;
+  color: #666;
+}
+
+.modalBtn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+#randomGenBtn {
+  display: block;
+  padding: 10px 20px;
+  border: none;
+  background-color: rgb(100, 145, 33);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#randomGenBtn:hover {
+  background-color: rgb(30, 126, 33);
+}
+
+#closeBtn {
+  display: block;
+  padding: 10px 20px;
+  border: solid rgb(125, 125, 125) 1px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#closeBtn {
+  margin: 0;
+}
+
+#closeBtn:hover {
+  background-color:rgb(220, 220, 220);
+}
+
+/* メニューボタンのスタイル*/
+#menuBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* 円形にする */
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  z-index: 900; /* モーダルより下、canvasより上 */
+}
+
+#menuBtn:hover {
+  background-color: white;
+  border-color: #999;
+}
+
+.hidden {
+  display: none !important; /* !importantで確実に非表示にする */
+}
+
+
+
+/* ライフゲーム用 */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #fff; /* 画面全体 背景白 */
+}
+
+canvas {
+  display: block;
+}
+
+#textInput {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  caret-color: blue; /*あったほうが入力できてる感あってUXが良いのか?*/
+
+  color:rgba(0, 0, 0, 0);
+  font-size: 24px;
+  padding: 10;
+  box-sizing: border-box;
+
+  letter-spacing:9px;
+}
+
+#fileInput {
+  position: absolute;
+}

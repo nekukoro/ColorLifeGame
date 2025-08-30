@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ライフゲームへようこそ！</title>
+  <link rel="stylesheet" href="LifeGame.css">
+</head>
+<body>
+  
+  <div id="overlay" class="hidden">
+    <div id="modal">
+      <h2>ライフゲームへようこそ！</h2>
+      <p>このサイトは、テキストや画像を使ってインタラクティブな「ライフゲーム」を楽しむことができます。</p>
+      <h3>【ゲーム開始前の操作】</h3>
+      <ul>
+          <li><strong>文字入力:</strong> 画面中央の枠内をクリックして、好きな文字列を入力してください。</li>
+          <li><strong>画像選択:</strong> 「ファイルを選択」ボタンから、好きな画像（JPEG, PNGなど）を選んでください。(画像内の一部の白色部分は表示されない仕様になっています。)</li>
+          <li><strong>確定:</strong> 画面中央右側の「確定」と書かれた枠内をクリックすると、その時点のドットを初期パターンとして、ライフゲームが開始されます。</li>
+          <li>現在表示しているメニューの下にある「ランダム生成して開始」のボタンを押すと、画面に色付きのドットがランダムで表示され、ライフゲームが開始されます。</li>
+      </ul>
+
+      <h3>【ライフゲームのルール】</h3>
+      <p>
+        一部UIを除く、全ての色のついているドットは生のセルとして扱います。<br>
+        ゲームが始まると、ドット（セル）は以下のルールに従って世代交代を繰り返します。<br>
+        - **誕生:** 周囲に3つの生のセルがある空間に生まれます。<br>
+        - **生存:** 周囲に2つか3つの生のセルがある空間は、そのまま生き残ります。<br>
+        - **過疎/過密:** 周囲に生のセルが2つ未満あるいは、周囲に生のセルが4つ以上ある空間では死亡します。
+      </p>
+      <div class="modalBtn">
+        <button id="randomGenBtn">ランダム生成して開始</button>
+        <button id="closeBtn">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="menuBtn">？</button>
+
+
+  <canvas id="lifeGameCanvas"></canvas>
+  <input type="text" id="textInput">
+  <input type="file" id="fileInput" accept="image/*">
+
+  <script src="LifeGame.js"></script>
+
+</body>
+</html>
