@@ -193,13 +193,14 @@ function drawDot(x, y, color) {
 
 
 // テキストをドットに変換して描画する関数
-function getTextDots(text, startX, startY, colorFunc, fontSize) {
+function getTextDots(text, startX, startY, colorFunc, fontSize,letterSpacing = '0px') {
     const dots = new Map();
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
 
     const font = `${fontSize}px "MS Gothic", sans-serif`;
     tempCtx.font = font;
+    tempCtx.letterSpacing = letterSpacing;
     const textMetrics = tempCtx.measureText(text);
     const textWidth = Math.ceil(textMetrics.width);
     const textHeight = Math.ceil(fontSize * 1.2);
@@ -208,6 +209,7 @@ function getTextDots(text, startX, startY, colorFunc, fontSize) {
     tempCanvas.height = textHeight;
 
     tempCtx.font = font;
+    tempCtx.letterSpacing = letterSpacing;
     tempCtx.fillStyle = '#000000';
     tempCtx.fillText(text, 0, fontSize);
 
@@ -363,23 +365,31 @@ function updateAndDrawSetup() {
     const headerStartY = snapToGrid((headerBox.height - headerFontSize) / 2);
     const headerTextDots = getTextDots("ライフゲーム", headerStartX, headerStartY,
         (p) => `hsl(${p * 360}, 100%, 70%)`,
-        headerFontSize
+        headerFontSize, '0px'
     );
     headerTextDots.forEach((color, key) => aliveCells.set(key, color));
     
     // clock、リアルタイム時計
     const now = new Date();
     const timeString = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-    const clockFontSize = 39;
+    const clockFontSize = 42;
+    const clockLetterSpacing = '4px';
 
     ctx.font = `${clockFontSize}px "MS Gothic", sans-serif`; // 測定前にフォントを指定
+    ctx.letterSpacing = clockLetterSpacing;
     const textMetrics = ctx.measureText(timeString);
     const textWidth = textMetrics.width;
 
-    const clockStartX = snapToGrid((width - textWidth) / 2);
-    const clockStartY = snapToGrid(headerBox.height * 1.1);
+    ctx.letterSpacing = '0px';
 
-    const clockTextDots = getTextDots(timeString, clockStartX, clockStartY, 'black', clockFontSize);
+    const spaceTop = headerBox.height;
+    const spaceBottom = innerBoxT.y;
+    const spaceHeight = spaceBottom - spaceTop;
+
+    const clockStartX = snapToGrid((width - textWidth) / 2);
+    const clockStartY = snapToGrid(spaceTop + (spaceHeight - clockFontSize) / 2); //これで多分いい感じのところに表示される
+
+    const clockTextDots = getTextDots(timeString, clockStartX, clockStartY, 'black', clockFontSize, clockLetterSpacing);
     clockTextDots.forEach((color, key) => aliveCells.set(key, color));
     
     // getText、入力テキスト
@@ -387,16 +397,19 @@ function updateAndDrawSetup() {
         const textFontSize = Math.min(innerBoxT.height * 0.75, 40);
         const textStartX = snapToGrid(innerBoxT.x + 10);
         const textStartY = snapToGrid(innerBoxT.y + (innerBoxT.height - textFontSize) / 2);
-        const textDots = getTextDots(userText, textStartX, textStartY, 'black', textFontSize);
+        const textDots = getTextDots(userText, textStartX, textStartY, 'black', textFontSize, '0px');
         textDots.forEach((color, key) => aliveCells.set(key, color));
     }
 
     // buttonText、"確定"
     const buttonFontSize = Math.min(innerBoxB.height * 0.6, 40);
-    
-    const buttonStartX = snapToGrid(innerBoxB.x + (innerBoxB.width - (buttonFontSize * 2)) / 2);
+    const buttonLabel = "確定";
+
+    ctx.font = `${buttonFontSize}px "MS Gothic", sans-serif`;
+    const buttonMetrics = ctx.measureText(buttonLabel);
+    const buttonStartX = snapToGrid(innerBoxB.x + (innerBoxB.width - buttonMetrics.width) / 2);
     const buttonStartY = snapToGrid(innerBoxB.y + (innerBoxB.height - buttonFontSize) / 2);
-    const buttonTextDots = getTextDots("確定", buttonStartX, buttonStartY, 'black', buttonFontSize);
+    const buttonTextDots = getTextDots(buttonLabel, buttonStartX, buttonStartY, 'black', buttonFontSize, '6px');
     buttonTextDots.forEach((color, key) => aliveCells.set(key, color));
 
     // getImage、選択された画像
