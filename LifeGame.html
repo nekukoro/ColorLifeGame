@@ -27,6 +27,11 @@
         - **生存:** 周囲に2つか3つの生のセルがある空間は、そのまま生き残ります。<br>
         - **過疎/過密:** 周囲に生のセルが2つ未満あるいは、周囲に生のセルが4つ以上ある空間では死亡します。
       </p>
+      <div class="speed-control">
+        <label for="speedSlider">ゲームの進行速度:</label>
+        <input type="range" id="speedSlider" min="100" max="1500" step="100" value="500">
+        <span id="speedValue">0.5秒</span>
+      </div>
       <div class="modalBtn">
         <button id="resetBtn">リセット</button>
         <button id="randomGenBtn">ランダム生成して開始</button>
