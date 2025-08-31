@@ -100,6 +100,30 @@
     background-color: rgb(188, 11, 11);
 }
 
+.speed-control {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 2px solid rgb(240, 240, 240);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.speed-control label {
+  color: rgb(64, 64, 64);
+  font-weight: bold;
+}
+
+#speedSlider {
+  flex-grow: 1;
+}
+
+#speedValue {
+  color: rgb(64, 64, 64);
+  font-weight: bold;
+  width: 50px; /* 表示がガタガタしないように幅を固定 */
+}
+
 /* メニューボタンのスタイル*/
 #menuBtn {
   position: fixed;
