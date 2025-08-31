@@ -84,6 +84,22 @@
   background-color:rgb(220, 220, 220);
 }
 
+#resetBtn {
+    display: block;
+    padding: 10px 20px;
+    border: none;
+    background-color: rgb(223, 75, 75);
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: auto;
+}
+
+#resetBtn:hover {
+    background-color: rgb(188, 11, 11);
+}
+
 /* メニューボタンのスタイル*/
 #menuBtn {
   position: fixed;
