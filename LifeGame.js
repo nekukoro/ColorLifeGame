@@ -3,6 +3,7 @@ const overlay = document.getElementById('overlay');
 const menuBtn = document.getElementById('menuBtn');
 const closeBtn = document.getElementById('closeBtn');
 const randomGenBtn = document.getElementById('randomGenBtn');
+const resetBtn = document.getElementById('resetBtn');
 
 // 初期設定
 const canvas = document.getElementById('lifeGameCanvas');
@@ -122,6 +123,11 @@ function setupEventListeners() {
           overlay.classList.add('hidden');
       }
   });
+
+  //リセットボタン
+  resetBtn.addEventListener('click', () => {
+    window.location.reload();
+    });
 
 
   // テキスト入力
