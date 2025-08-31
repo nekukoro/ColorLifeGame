@@ -5,6 +5,10 @@ const closeBtn = document.getElementById('closeBtn');
 const randomGenBtn = document.getElementById('randomGenBtn');
 const resetBtn = document.getElementById('resetBtn');
 
+const speedSlider = document.getElementById('speedSlider');
+const speedValueSpan = document.getElementById('speedValue');
+let gameSpeed = 500; // ゲーム速度の初期値（ミリ秒
+
 // 初期設定
 const canvas = document.getElementById('lifeGameCanvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -127,6 +131,17 @@ function setupEventListeners() {
   //リセットボタン
   resetBtn.addEventListener('click', () => {
     window.location.reload();
+    });
+
+  //進行速度
+  speedSlider.addEventListener('input', (e) => {
+        // gameSpeed変数を更新
+        gameSpeed = parseInt(e.target.value);
+        speedValueSpan.textContent = `${(gameSpeed / 1000).toFixed(1)}秒`;
+        // もしゲームが実行中なら、新しい速度でループを再開する
+        if (isGameRun) {
+            startGameLoop();
+        }
     });
 
 
@@ -452,7 +467,7 @@ function clickButton() {
 // ゲームループ
 function startGameLoop() {
     if (gameInterval) clearInterval(gameInterval);
-    gameInterval = setInterval(updateAndDrawGame, 500); // ライフゲームの進行速度
+    gameInterval = setInterval(updateAndDrawGame, gameSpeed); // ライフゲームの進行速度
 }
 
 
